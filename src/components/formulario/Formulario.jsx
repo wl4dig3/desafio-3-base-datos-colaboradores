@@ -41,7 +41,6 @@ const [exito, setExito] = useState(null);
 
   return (
     <section className="section-formulario">
-        <h2>Agregar colaborador</h2>
       <input
         placeholder="Nombre Colaborador"
         name="nombreColaborador"
