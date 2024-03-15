@@ -5,6 +5,7 @@ import Listado from './components/listado/Listado';
 import Titulo from './components/titulo/Titulo';
 import ListarColaboradores from './components/listado/ListarColaboradores';
 import { BaseColaboradores } from './constans/BaseColaboradores';
+import Buscador from './components/buscador/Buscador';
 
 function App() {
   const cabeceraListado = ["Nombre", "Correo","Edad", "Cargo", "Teléfono"]
@@ -16,6 +17,7 @@ function App() {
         textoTitulo="Agregar colaborador"
       />
       <Formulario />
+      <Buscador />
       <Listado>
         <Table className="mt-2" striped bordered hover>
           <thead>
@@ -26,10 +28,9 @@ function App() {
               ))}
             </tr>
           </thead>
-          {/* <ListarColaboradores id={BaseColaboradores.map((item) => item.id)} /> */}
-          {BaseColaboradores.map((item, index) => (
+          {BaseColaboradores.map((item) => (
             <ListarColaboradores
-              key={index}
+              key={item.id}
               id={item.id}
               nombre={item.nombre}
               email={item.correo}
@@ -40,6 +41,7 @@ function App() {
           ))}
         </Table>
       </Listado>
+      
     </>
   );
 }

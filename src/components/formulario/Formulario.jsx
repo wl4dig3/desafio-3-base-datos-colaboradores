@@ -15,6 +15,7 @@ function Formulario() {
   };
 const [ err, setErr] = useState(null);
 const [exito, setExito] = useState(null);
+const [colaborador, setColaborador] = useState([valorInicial]);
 
   const [dataFormulario, setDataFormulario] = useState(valorInicial);
 
@@ -34,13 +35,20 @@ const [exito, setExito] = useState(null);
       return setErr(true)
 
 }  else {
+  setDataFormulario(valorInicial)
   setErr(false)
   setExito(true)
 }
+  };
+
+  const onHandleSubmit = (e) => {
+    e.preventDefault()
+    alert('enviando formulario');
   }
 
   return (
-    <section className="section-formulario">
+    <section>
+      <form onSubmit={(e) => onHandleSubmit(e)} className="section-formulario"  action="">
       <input
         placeholder="Nombre Colaborador"
         name="nombreColaborador"
@@ -71,6 +79,7 @@ const [exito, setExito] = useState(null);
         type="text"
         onChange={handleChange}
       />
+      </form>
       <Button onClick={enviar} variant="info" size="md">
         Agregar Colaborador
       </Button>
