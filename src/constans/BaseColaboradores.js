@@ -1,4 +1,4 @@
-export const BaseColabores = [
+export const BaseColaboradores = [
   {
     id: "1",
     nombre: "Juan Sotomayor",
