@@ -1,14 +1,26 @@
-import PropTypes from 'prop-types';
-import './Buscador.css'
-function Buscador() {
+// Buscador.jsx
+import { useState } from "react";
+
+const Buscador = ({ buscarColaborador }) => {
+  const [query, setQuery] = useState('');
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+    buscarColaborador(e.target.value);
+  };
+
   return (
-    <section className='container-buscador'>
-    
-    <input className='input-buscador' />
-    </section>
-  )
-}
+    <div>
+      <h2>Buscar Colaborador</h2>
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Buscar..."
+        value={query}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};
 
-Buscador.propTypes = {}
-
-export default Buscador
+export default Buscador;

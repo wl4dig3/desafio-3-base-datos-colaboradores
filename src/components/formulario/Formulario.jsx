@@ -1,112 +1,85 @@
-import {useState} from 'react'
-import './Formulario.css';
-import Button from 'react-bootstrap/Button';
-import Alerta from '../alert/Alerta';
+// Formulario.jsx
+import React, { useState } from 'react';
 
+const Formulario = ({ agregarColaborador }) => {
+  const [nombre, setNombre] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [edad, setEdad] = useState('');
+  const [cargo, setCargo] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [error, setError] = useState('');
 
-function Formulario({agregarColaborador}) {
-
-  let valorInicial = {
-    nombreColaborador: '',
-    email: '',
-    edad: '',
-    cargo: '',
-    telefono: '',
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!nombre || !correo || !edad || !cargo || !telefono) {
+      setError('Por favor completa todos los campos');
+      return;
+    }
+    agregarColaborador({ nombre, correo, edad, cargo, telefono });
+    setError('');
+    setNombre('');
+    setCorreo('');
+    setEdad('');
+    setCargo('');
+    setTelefono('');
   };
-const [ err, setErr] = useState(null);
-const [exito, setExito] = useState(null);
-const [colaborador, setColaborador] = useState("");
-const [colaboradores, setColaboradores] = useState([]);
-
-  const [dataFormulario, setDataFormulario] = useState(valorInicial);
-
-  const handleChange = (e) => {
-  setDataFormulario( (estadoPrevio) => ({...estadoPrevio, [e.target.name]: e.target.value}));
-  setColaboradores([...colaboradores, dataFormulario]);
-  console.log(colaboradores)
-  };
-
-
-  const enviar = () => {
-    if (
-      dataFormulario.nombreColaborador == '' ||
-      dataFormulario.email == '' ||
-      dataFormulario.edad == '' ||
-      dataFormulario.cargo == '' ||
-      dataFormulario.telefono == ''
-      ){
-      return setErr(true)
-
-}  else {
-  setDataFormulario(valorInicial) // TODO: no funciona el limpiar el formulario
-  setColaboradores([...colaboradores, dataFormulario])
-  agregarColaborador({
-    nombre: dataFormulario.nombreColaborador,
-    email: dataFormulario.email,
-    edad: dataFormulario.edad,
-    cargo: dataFormulario.cargo,
-    telefono: dataFormulario.telefono
-  })
-  setErr(false)
-  setExito(true)
-
-}
-  };
-
-  const HandleSubmit = (e) => {
-    e.preventDefault()
-    alert('enviando formulario');
-  }
 
   return (
-    <section>
-      <form
-        onSubmit={HandleSubmit}
-        className="section-formulario"
-        action=""
-      >
-        <input
-          placeholder="Nombre Colaborador"
-          name="nombreColaborador"
-          type="text"
-          onChange={handleChange}
-          value={colaborador.nombre}
-        />
-        <input
-          placeholder="email colaborador"
-          name="email"
-          type="email"
-          onChange={handleChange}
-        />
-        <input
-          placeholder="Edad del colaborador"
-          name="edad"
-          type="text"
-          onChange={handleChange}
-        />
-        <input
-          placeholder="Cargo del colaborador"
-          name="cargo"
-          type="text"
-          onChange={handleChange}
-        />
-        <input
-          placeholder="Teléfono del colaborador"
-          name="telefono"
-          type="text"
-          onChange={handleChange}
-        />
-        <Button onClick={enviar} variant="info" size="md">
+    <div>
+      <h2>Agregar Colaborador</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Nombre:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Correo:</label>
+          <input
+            type="email"
+            className="form-control"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Edad:</label>
+          <input
+            type="number"
+            className="form-control"
+            value={edad}
+            onChange={(e) => setEdad(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Cargo:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={cargo}
+            onChange={(e) => setCargo(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Teléfono:</label>
+          <input
+            type="tel"
+            className="form-control"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
           Agregar Colaborador
-        </Button>
+        </button>
       </form>
-      {err ? (
-        <Alerta color="danger" mensaje="Completa todos los campos!" />
-      ) : null}
-      {exito ? <Alerta color="success" mensaje="Registro exitoso!" /> : null}
-    </section>
+    </div>
   );
-}
-
+};
 
 export default Formulario;

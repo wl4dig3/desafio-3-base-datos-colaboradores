@@ -1,56 +1,43 @@
-import { useState } from 'react';
-import './App.css';
-import Table from 'react-bootstrap/Table';
-import Formulario from './components/formulario/Formulario';
+// App.jsx
+import  { useState } from 'react';
 import Listado from './components/listado/Listado';
-import Titulo from './components/titulo/Titulo';
-import ListarColaboradores from './components/listado/ListarColaboradores';
-import { BaseColaboradores } from './constans/BaseColaboradores';
+import Formulario from './components/formulario/Formulario';
 import Buscador from './components/buscador/Buscador';
+import Alert from './components/alert/Alerta';
+import { BaseColaboradores } from './constans/BaseColaboradores';
+import './App.css';
 
-
-function App() {
-  const cabeceraListado = ["Nombre", "Correo","Edad", "Cargo", "Teléfono"];
-  const [colaborador, setColaborador] = useState();
+const App = () => {
+  const [colaboradores, setColaboradores] = useState(BaseColaboradores);
+  const [mensaje, setMensaje] = useState('');
+  const [tipoMensaje, setTipoMensaje] = useState('');
 
   const agregarColaborador = (nuevoColaborador) => {
-    setColaborador([...BaseColaboradores, nuevoColaborador])
+    setColaboradores([...colaboradores, nuevoColaborador]);
+    setMensaje('Colaborador agregado exitosamente');
+    setTipoMensaje('success');
+  };
+
+  const buscarColaborador = (query) => {
+    // Aquí puedes implementar la lógica de búsqueda por todos los campos
+    // Puedes usar filter() para filtrar el arreglo de colaboradores según la query
+    // y actualizar el estado con los resultados de la búsqueda
   };
 
   return (
-    <>
-      <Titulo
-        estilos={{ fontSize: "2rem", marginBottom: "1rem" }}
-        textoTitulo="Agregar colaborador"
-      />
-      <Formulario agregarColaborador={agregarColaborador} />
-      <Buscador />
-      <Listado>
-        <Table className="mt-2" striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              {cabeceraListado.map((item, index) => (
-                <th key={index}>{item}</th>
-              ))}
-            </tr>
-          </thead>
-          {BaseColaboradores.map((item) => (
-            <ListarColaboradores
-              key={item.id}
-              id={item.id}
-              nombre={item.nombre}
-              email={item.correo}
-              edad={item.edad}
-              cargo={item.cargo}
-              telefono={item.telefono}
-            />
-          ))}
-        </Table>
-      </Listado>
-      
-    </>
+    <div className="container mt-4">
+      <Alert mensaje={mensaje} tipo={tipoMensaje} />
+      <div className="row">
+        <div className="col-md-6">
+          <Formulario agregarColaborador={agregarColaborador} />
+        </div>
+        <div className="col-md-6">
+          <Buscador buscarColaborador={buscarColaborador} />
+          <Listado colaboradores={colaboradores} />
+        </div>
+      </div>
+    </div>
   );
-}
+};
 
-export default App
+export default App;
