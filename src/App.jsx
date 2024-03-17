@@ -9,6 +9,7 @@ import './App.css';
 
 const App = () => {
   const [colaboradores, setColaboradores] = useState(BaseColaboradores);
+  const [ setColaboradoresFiltrados] = useState([])
   const [mensaje, setMensaje] = useState('');
   const [tipoMensaje, setTipoMensaje] = useState('');
 
@@ -18,11 +19,12 @@ const App = () => {
     setTipoMensaje('success');
   };
 
-  const buscarColaborador = (query) => {
-    // Aquí puedes implementar la lógica de búsqueda por todos los campos
-    // Puedes usar filter() para filtrar el arreglo de colaboradores según la query
-    // y actualizar el estado con los resultados de la búsqueda
-  };
+  const buscarColaborador = (query) => { // TODO: no funciona :'(
+   const colaboradorFiltrados = colaboradores.filter( (colaborador) => {
+    return Object.values(colaborador).some((campo) => campo.toLowerCase().includes(query))
+   });
+   setColaboradoresFiltrados(colaboradorFiltrados) 
+   };
 
   return (
     <div className="container mt-4">
@@ -32,7 +34,7 @@ const App = () => {
           <Formulario agregarColaborador={agregarColaborador} />
         </div>
         <div className="col-md-6">
-          <Buscador buscarColaborador={buscarColaborador} />
+          <Buscador  buscarColaborador={buscarColaborador} />
           <Listado colaboradores={colaboradores} />
         </div>
       </div>

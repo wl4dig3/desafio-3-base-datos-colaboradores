@@ -1,7 +1,7 @@
 // Buscador.jsx
 import { useState } from "react";
 
-const Buscador = ({ buscarColaborador }) => {
+const Buscador = ({ buscarColaborador, setColaboradoresFiltrados }) => {
   const [query, setQuery] = useState('');
 
   const handleChange = (e) => {

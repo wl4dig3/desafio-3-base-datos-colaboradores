@@ -1,5 +1,5 @@
 // Formulario.jsx
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 const Formulario = ({ agregarColaborador }) => {
   const [nombre, setNombre] = useState('');
@@ -25,7 +25,7 @@ const Formulario = ({ agregarColaborador }) => {
   };
 
   return (
-    <div>
+    <section className='section-formulario'>
       <h2>Agregar Colaborador</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
@@ -74,11 +74,11 @@ const Formulario = ({ agregarColaborador }) => {
             onChange={(e) => setTelefono(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary my-3">
           Agregar Colaborador
         </button>
       </form>
-    </div>
+    </section>
   );
 };
 
