@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Table from 'react-bootstrap/Table';
 import Formulario from './components/formulario/Formulario';
@@ -7,8 +8,14 @@ import ListarColaboradores from './components/listado/ListarColaboradores';
 import { BaseColaboradores } from './constans/BaseColaboradores';
 import Buscador from './components/buscador/Buscador';
 
+
 function App() {
-  const cabeceraListado = ["Nombre", "Correo","Edad", "Cargo", "Teléfono"]
+  const cabeceraListado = ["Nombre", "Correo","Edad", "Cargo", "Teléfono"];
+  const [colaborador, setColaborador] = useState();
+
+  const agregarColaborador = (nuevoColaborador) => {
+    setColaborador([...BaseColaboradores, nuevoColaborador])
+  };
 
   return (
     <>
@@ -16,7 +23,7 @@ function App() {
         estilos={{ fontSize: "2rem", marginBottom: "1rem" }}
         textoTitulo="Agregar colaborador"
       />
-      <Formulario />
+      <Formulario agregarColaborador={agregarColaborador} />
       <Buscador />
       <Listado>
         <Table className="mt-2" striped bordered hover>
